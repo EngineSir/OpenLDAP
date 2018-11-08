@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>修改管理员信息</title>
+<link rel="stylesheet" href="css/login.css"/>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<script type="text/javascript">
+	function btn_f(){
+		var nick=$('#nick').val();
+		var flog=true;
+		if(nick==""){
+			flog=false;
+			
+		}
+		var pwd=$('#pwd').val();
+		var sure_pwd=$('#suer_pwd').val();
+		if(pwd!=sure_pwd || pwd=="" || sure_pwd==""){
+			flog=false;
+		}
+		console.log(flog);
+		return flog;
+	}
+	function show(){
+		var nick=$('#nick').val();
+		if(nick==""){
+			$('#wri').html("null");
+			$('#wri').show();	
+		}else{
+			$('#wri').hide();	
+		}
+		
+	}
+	function show1(){
+		var pwd=$('#pwd').val();
+		if(pwd==""){
+			$('#wri1').html("null");
+			$('#wri1').show();	
+		}else{
+			$('#wri1').hide();	
+		}	
+	}
+	function show2(){
+		var suer_pwd=$('#suer_pwd').val();
+		var pwd=$('#pwd').val();
+		if(suer_pwd!=pwd || suer_pwd==""){
+			$('#wri2').html("error");
+			$('#wri2').show();	
+		}else{
+			$('#wri2').hide();	
+		}	
+	}
+	$(function(){
+		$.ajax({
+			url:"queryUser",
+			type:"post",
+			success:function(result){
+				console.log(result);
+				$("#nick").val(result);
+			},
+			error:function(){
+				alert("查询出错了");
+			}
+		
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="body_main">
+		
+		<form action="updatePwd" method="post">
+		<div class="global">
+			<div class="log log_in" tabindex='-1' id='dl'>
+				<dl>
+					<dt>
+						<div class='header'>
+							<h3>密码修改</h3>
+						</div>
+					</dt>
+					<dt></dt>
+					<dt>
+						<div class='letter'>
+							用户名:&nbsp;<input type="text" name="username" id="nick" tabindex='1' readonly/>
+							<span id="count_span" hidden="hidden">*</span>
+						</div>
+					</dt>
+					<dt>
+						<div class='letter'>
+							密&nbsp;&nbsp;&nbsp;码:&nbsp;<input type="password" name="pwd"  onblur="show1()" id="pwd" tabindex='2'/>
+							<span hidden="hidden" id="wri1" class="main">*</span>
+						</div>
+					</dt>
+					<dt>
+					<dt>
+						<div class='letter'>
+							新密码:&nbsp;<input type="password" name="sure_pwd" id="suer_pwd" onblur="show2()" tabindex='2'/>
+							<span id="wri2" class="main" hidden="hidden">*</span>
+						</div>
+					</dt>
+					<dt>
+						<div>
+							<input type="submit"  id="login" onclick="return btn_f()" value='&nbsp修&nbsp改&nbsp' tabindex='3' />
+						</div>
+					</dt>
+				</dl>
+			</div>	
+		</div>
+		</form>
+		<!-- <div class="back">
+			<input type="button" onclick="login'" id="up_btn" value="返回">
+		</div>-->
+	</div>
+</body>
+</html>
