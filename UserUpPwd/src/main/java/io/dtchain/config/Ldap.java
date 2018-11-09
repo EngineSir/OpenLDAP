@@ -73,8 +73,8 @@ public class Ldap {
 				env.put(Context.SECURITY_AUTHENTICATION, "simple");
 			
 				 String root1 = "cn="+account+","+BASEDN;  //根据自己情况修改  
-			        env.put(Context.SECURITY_PRINCIPAL, root1);   // 管理员  
-			        env.put(Context.SECURITY_CREDENTIALS, password);  // 管理员密码  
+			        env.put(Context.SECURITY_PRINCIPAL, root1);   // 用户帐户 
+			        env.put(Context.SECURITY_CREDENTIALS, password);  // 用户密码  
 				env.put(Context.INITIAL_CONTEXT_FACTORY, FACTORY);
 				env.put(Context.PROVIDER_URL, URL+BASEDN);
 				try {
